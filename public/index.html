@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Sample CRUD application</title>
+	<meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="ApplicationCRUD.js"></script>
+    <script src="Services/IndexServices.js"></script>
+    <script src="Controllers/indexCtrl.js"></script>
+</head>
+<body ng-app="MyAppCrud" ng-controller="indexController">
+    <div id="wrapper">
+
+        <div class="modal  fade"  id="myModalFormAddPerson" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="IdModalTitle"> Add New Person</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!--Formulaire-->
+                        <form name="myform"  class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" required>first Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" ng-model="master.firstname" class="form-control" placeholder="enter first Name" ng-required="true" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">last Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" ng-model="master.lastname" class="form-control" placeholder="enter last Name" ng-required="true" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Email</label>
+                                <div class="col-sm-8">
+                                    <input type="text" ng-model="master.email" class="form-control" placeholder="enter email" ng-required="true" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Address</label>
+                                <div class="col-sm-8">
+                                    <input type="text" ng-model="master.address" class="form-control" placeholder="enter address" ng-required="true" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Zip</label>
+                                <div class="col-sm-8">
+                                    <input type="text" ng-model="master.zip" class="form-control" placeholder="enter zip" ng-required="true" />
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-sm-4 control-label">Biography</label>
+                                <div class="col-sm-8">
+									<textarea ng-model="master.bio" class="form-control" placeholder="enter biography data" ng-required="true" ></textarea>
+									<!--
+                                    <input type="text" ng-model="master.bio" class="form-control" placeholder="enter biography data" ng-required="true" />
+									-->
+                                </div>
+                            </div>
+                            
+                             <div class="form-group">
+                                <label class="col-sm-4 control-label">Hobbies</label>
+                                <div class="col-sm-8">
+                                    <input type="text" ng-model="master.hobbies" class="form-control" placeholder="enter hobbies" ng-required="true" />
+                                </div>
+                            </div>
+                            
+                            <div class="modal-footer">
+                                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button ng-click="myform.$valid && AddNewPerson(master)" class="btn btn-primary">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+       
+        <div class="modal  fade"  id="myModalFormEditPerson" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="EditModalTitle"> Edit Person</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!--Formulaire-->
+                        <form name="editform"  class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" required>first Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" ng-model="editItem.firstname" class="form-control" placeholder="enter first Name" ng-required="true" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">last Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" ng-model="editItem.lastname" class="form-control" placeholder="enter last Name" ng-required="true" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Email</label>
+                                <div class="col-sm-8">
+                                    <input type="text" ng-model="editItem.email" class="form-control" placeholder="enter email" ng-required="true" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Address</label>
+                                <div class="col-sm-8">
+                                    <input type="text" ng-model="editItem.address" class="form-control" placeholder="enter address" ng-required="true" />
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-sm-4 control-label">Zip</label>
+                                <div class="col-sm-8">
+                                    <input type="text" ng-model="editItem.zip" class="form-control" placeholder="enter zip" ng-required="true" />
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-sm-4 control-label">Biography</label>
+                                <div class="col-sm-8">
+									<textarea ng-model="editItem.bio" class="form-control" placeholder="enter biography data" ng-required="true" ></textarea>
+									<!--
+                                    <input type="text" ng-model="editItem.bio" class="form-control" placeholder="enter biography data" ng-required="true" />
+									-->
+                                </div>
+                            </div>
+                            
+                             <div class="form-group">
+                                <label class="col-sm-4 control-label">Hobbies</label>
+                                <div class="col-sm-8">
+                                    <input type="text" ng-model="editItem.hobbies" class="form-control" placeholder="enter hobbies" ng-required="true" />
+                                </div>
+                            </div>
+                            
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
+                                <button ng-click="editform.$valid && Edit(editItem)" type="submit" class="btn btn-default">Edit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <div class="row">
+            <center><h3>Sample CRUD application using AngularJS, NodeJs and MongoDb</h3></center>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="row">
+                    <button type="button" class="btn btn-info btn-sm" ng-click="addCB()">Add Object</button>
+                    <button type="button" class="btn btn-info btn-sm" ng-click="reseedCB()">Reseed</button>
+                </div>
+                <div id="messageDiv">
+                </div>
+                <p>
+                </p>
+                
+  
+                <div class="row">
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr><th>Name</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody ng-repeat="elem in listPerson">
+                            <tr>
+								<td> <b>{{elem.firstname}} {{elem.lastname}}</b> 
+								<p>
+								<ul>
+								<li>
+									{{elem.email}}
+								</li>
+								<li>
+									{{elem.address}}
+								</li>
+								<li>
+									{{elem.zip}}
+								</li>
+								<li>
+									{{elem.bio}}
+								</li>
+								<li>
+									{{elem.hobbies}}
+								</li>
+								</ul>
+								</p>
+								</td>
+								<!--
+                                <td  class="col-lg-2"><input type="text" readonly="true" ng-model="elem.firstname" /></td>
+                                <td class="col-lg-2"><input type="text" readonly="true" ng-model="elem.lastname"  /></td>
+                            	-->
+                                <td class="col-lg-2"><a href="#" ng-click="Remove(elem._id)"><span class="glyphicon glyphicon-remove"></span> Remove</a> 
+                                <a href="#" ng-click="EditItem(elem)"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-offset-2"></div>
+        </div>
+    </div>
+</body>
+</html>
