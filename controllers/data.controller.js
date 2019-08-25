@@ -12,10 +12,10 @@ exports.create = (req, res) =>
 	 */
 	 
 	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
-    res.header("Pragma", "no-cache");
-    res.header("Expires", 0);
+    	res.header("Pragma", "no-cache");
+    	res.header("Expires", 0);
     
-	console.log(req.body);
+	//console.log(req.body);
 	
     // Validate request
     if(!req.body) {
