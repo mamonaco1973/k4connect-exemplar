@@ -16,6 +16,12 @@
 <body ng-app="MyAppCrud" ng-controller="indexController">
     <div id="wrapper">
 
+		<!--
+		
+			Embedded dialog box for adding a new person object represented by a user data object.
+		
+		-->
+		
         <div class="modal  fade"  id="myModalFormAddPerson" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -83,7 +89,12 @@
             </div>
         </div>
       
-       
+      	<!--
+		
+			Embedded dialog box for editing an existing user data object.
+		
+		-->
+		
         <div class="modal  fade"  id="myModalFormEditPerson" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -154,7 +165,7 @@
         <div class="row">
             <center><h3>Sample CRUD application using AngularJS, NodeJs and MongoDb</h3></center>
         </div>
-        <div class="row">
+        <div class="row" style="margin-left: 15px; margin-right: 15px ">
             <div class="col-lg-8 col-lg-offset-2">
                 <div class="row">
                     <button type="button" class="btn btn-info btn-sm" ng-click="addCB()">Add Object</button>
@@ -165,6 +176,11 @@
                 <p>
                 </p>
                 
+                <!--
+                
+					Simple table for displaying all user data objects.
+                
+                -->
   
                 <div class="row">
                     <table class="table table-responsive">
